@@ -1,0 +1,6 @@
+**/*.crt
+**/*.csr
+**/*.key
+**/pidfile
+**/roleid
+**/secretid
