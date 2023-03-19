@@ -1,6 +1,8 @@
+**/.DS_Store
 **/*.crt
 **/*.csr
 **/*.key
 **/pidfile
 **/roleid
 **/secretid
+*artifact

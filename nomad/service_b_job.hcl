@@ -24,16 +24,33 @@ job "mtls-service-b" {
       config {
         command = "local/start.sh"
       }
+
+// // 로컬의 파일을 사용하는 경우
+//       template {
+//         data = <<EOH
+// #!/bin/bash
+// cp -R /경로/mtls-pki/python_service_b python_service_b
+// cd python_service_b
+// pip install requests flask
+// python main.py
+//       EOH
+// 				destination = "local/start.sh"
+//       }
+
+      artifact {
+        source      = "https://github.com/Great-Stone/vault-mtls-demo/releases/download/0.1.0/python_service_b.zip"
+        destination = "python_service_b"
+      }
       template {
         data = <<EOH
 #!/bin/bash
-cp -R /Users/gs/workspaces/hashicorp_example/vault-examples/mtls-pki/python_service_b python_service_b
 cd python_service_b
 pip install requests flask
 python main.py
       EOH
 				destination = "local/start.sh"
       }
+
       template {
         data = <<EOH
 {{- /* ca-a.tpl */ -}}
