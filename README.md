@@ -1,12 +1,8 @@
 # Vault PKI - mTLS demo
 
-> Demo App Github : 
-
-
+> Demo App Github : <https://github.com/Great-Stone/vault-mtls-demo>
 
 ## 1. mTLS 설명
-
-
 
 ### 1.1 SSL과 TLS
 
