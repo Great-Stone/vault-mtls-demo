@@ -406,9 +406,6 @@ More details here: https://curl.se/docs/sslcerts.html
 curl failed to verify the legitimacy of the server and therefore could not
 establish a secure connection to it. To learn more about this situation and
 how to fix it, please visit the web page mentioned above.
-```
-
-```bash
 $ curl --insecure https://service-a.example.com:7443
 
 Hello from "service-a"% 
@@ -879,7 +876,7 @@ job "mtls-service-a" {
     count = 1
 
     network {
-	    port "https" {
+      port "https" {
         static = 7433
       }
     }
@@ -906,7 +903,7 @@ cd python_service_a
 pip install requests flask
 python main.py
       EOH
-				destination = "local/start.sh"
+        destination = "local/start.sh"
       }
       
       # Vault Agent에서 구성했던 Template이 Job내에 정의된다.
@@ -916,8 +913,8 @@ python main.py
 {{ with secret "pki/issue/example-dot-com" "common_name=service-a.example.com" "ttl=2m" }}
 {{ .Data.issuing_ca }}{{ end }}
       EOH
-				destination = "/cert/ca.crt"
-				change_mode = "noop"
+        destination = "/cert/ca.crt"
+        change_mode = "noop"
       }
       # 인증서가 변경되는 경우 change_mode에 지정된 restart를 통해 Job을 재시작한다.
       template {
@@ -926,8 +923,8 @@ python main.py
 {{ with secret "pki/issue/example-dot-com" "common_name=service-a.example.com" "ttl=2m" }}
 {{ .Data.certificate }}{{ end }}
       EOH
-				destination = "/cert/service-a.crt"
-				change_mode = "restart"
+        destination = "/cert/service-a.crt"
+        change_mode = "restart"
       }
       template {
         data = <<EOH
@@ -935,8 +932,8 @@ python main.py
 {{ with secret "pki/issue/example-dot-com" "common_name=service-a.example.com" "ttl=2m" }}
 {{ .Data.private_key }}{{ end }}
       EOH
-				destination = "/cert/service-a.key"
-				change_mode = "noop"
+        destination = "/cert/service-a.key"
+        change_mode = "noop"
       }
     }
   }
@@ -957,9 +954,6 @@ python main.py
 
 ```bash
 nomad job run service_a_job.hcl
-```
-
-```bash
 nomad job run service_b_job.hcl
 ```
 
@@ -982,3 +976,7 @@ Consul Service Mesh에서 기본 제공하는 mTLS를 사용하는 경우 장점
 - mTLS의 서비스 간 인증 외에 Intention과 같은 서비스 요청에 대한 방향성을 지정 가능하다.
 
 단점은 Consul의 Control Plane과 Data Plane을 구분하는 동작으로 인해 추가적인 리소스가 발생한다는 점이다.
+
+![Service Mesh Certificate Authority - Overview | Consul | HashiCorp Developer 2023-03-19 17-23-03](https://raw.githubusercontent.com/Great-Stone/images/master/uPic/Service%20Mesh%20Certificate%20Authority%20-%20Overview%20%7C%20Consul%20%7C%20HashiCorp%20Developer%202023-03-19%2017-23-03.png)
+
+![Load Balancing Services in Consul Service Mesh with Envoy | Consul | HashiCorp Developer 2023-03-19 17-25-21](https://raw.githubusercontent.com/Great-Stone/images/master/uPic/Load%20Balancing%20Services%20in%20Consul%20Service%20Mesh%20with%20Envoy%20%7C%20Consul%20%7C%20HashiCorp%20Developer%202023-03-19%2017-25-21.png)
